@@ -1,0 +1,17 @@
+---
+driver:
+  name: terraform
+  parallelism: 1
+  root_module_directory: example
+
+provisioner:
+  name: terraform
+
+verifier:
+  name: terraform
+
+platforms:
+  - name: terraform
+
+suites:
+  - name: default

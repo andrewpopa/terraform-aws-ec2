@@ -14,3 +14,10 @@ script:
 - bundle exec kitchen converge
 - bundle exec kitchen verify
 - bundle exec kitchen destroy
+deploy:
+  provider: releases
+  api_key:
+    secure: li9qjJ13Z50402+dbFYVS6NltMEuh9tZqZ5E7P69IWIFaXdXAU/hUxx3hNWvOEXUg2lBO4UqZbsEyFE0Xj/OVzdHZ/gSxgo00ANK/FrcPtyENGRXbykXWzbPcF6ELSrV7/mN1e2XheDnPxQA3+p8EOcyCFX0sE/0Vg7NItb54XvgQYTsYksmPESUIJyuG8znB0XhjUQRzf+FOOd92y/Rqu3jZl4s++pfqunNm/L1myvRmAZRuPT9/INLMKQxISRh1TVHNN5OnxPriFQV9UyJc1EjZ51fuRddl1Te3Y3sdU5dLpvTbEzNSDQ5Usx65jQod+RQDYgGlW1TmJtkF/J8xYMTG/5ddz/rCl0Axt9f9shb837Yrms0ZdjNFWc6XQaq2WdXQU5lkRab8Vu+nyyneZUE9iFOQ6zXQ7zid5p3h7FGOcuNGln7hM3611lqVPzFfEfEGMiGpmeDvGgL2Jaeoq5ODRkcgGwwgJNJYvwEEIAALno/hED2ngVxxvaLWh2wBOa3jmFM2lWZq2SE3b4uId1/cp7CfWnYLFMVxNBMPBgO30c06QBHR2zug2yfBVueRFEuRYwvIru1XxJqtXRQztmOywayurrya8ggwPcQcMCWxhA1td7hx0ardJKwaPpWNROp1fqoIZO5DfTWtGiqlAeruADVtZTKBm5WbWD2I8M=
+  skip_cleanup: true
+  on:
+    repo: andrewpopa/terraform-aws-ec2

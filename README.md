@@ -1,10 +1,6 @@
 # terraform-aws-ec2
 Terraform module to create ec2 resources on AWS
 
-| **Branch**  | **Build status** |
-| ------------- | ------------- |
-| master  | [![Build Status](https://travis-ci.org/andrewpopa/terraform-aws-ec2.svg?branch=master)](https://travis-ci.org/andrewpopa/terraform-aws-ec2)  |
-
 # Terraform version
 This module was written and tested with Terraform v0.12.9 
 

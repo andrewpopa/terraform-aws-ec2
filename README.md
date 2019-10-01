@@ -175,3 +175,4 @@ Will add releases information to yaml file. Releases can be triggered using tags
 
 # TODO
 - [ ] add more terraform functionality
+- [ ] add kitchen test with travis

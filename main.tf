@@ -11,10 +11,11 @@ resource "aws_instance" "tf_ec2" {
   key_name                    = aws_key_pair.tf_key.key_name
   subnet_id                   = var.subnet_id
   associate_public_ip_address = var.public_ip
+  user_data                   = var.user_data
 
   root_block_device {
-    volume_type = var.ec2_instance["root_hdd_type"]
-    volume_size = var.ec2_instance["root_hdd_size"]
+    volume_type           = var.ec2_instance["root_hdd_type"]
+    volume_size           = var.ec2_instance["root_hdd_size"]
     delete_on_termination = true
   }
 

@@ -1,19 +1,19 @@
 # EC2
 variable "key_name" {
   description = "Name for ssh key"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "public_key" {
   description = "Public key"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "ami_type" {
   description = "Default OS"
-  type = string
+  type        = string
   default     = "ami-0085d4f8878cddc81"
 }
 
@@ -28,20 +28,20 @@ variable "ec2_instance" {
 
 variable "subnet_id" {
   description = "Subnet ID for EC2"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "vpc_security_group_ids" {
   description = "VPC security Group ID"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "public_ip" {
   description = "Associate public IP with instance"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "ec2_tags" {
@@ -50,4 +50,10 @@ variable "ec2_tags" {
   default = {
     ec2 = "my-ec2"
   }
+}
+
+variable "user_data" {
+  description = "Data provided on lunching"
+  type        = string
+  default     = ""
 }

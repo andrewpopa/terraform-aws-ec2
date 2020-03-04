@@ -90,7 +90,7 @@ module "ec2" {
 | ec2_ec2_dns | string | ec2 public aws dns |
 | ec2_ec2_id | string | ec2 id |
 
-# Testing
+<!-- # Testing
 Module has implemented testing with [kitchen](https://kitchen.ci/) and [kitchen-terraform](https://newcontext-oss.github.io/kitchen-terraform/)
 
 ## Install locally
@@ -168,7 +168,6 @@ travis setup releases
 ```
 
 Will add releases information to yaml file. Releases can be triggered using tags.
-
+-->
 # TODO
-- [ ] add more terraform functionality
 - [ ] add kitchen test with travis

@@ -18,7 +18,7 @@ variable "ami_type" {
 }
 
 variable "ec2_instance" {
-  type = "map"
+  type = map
   default = {
     "type"          = "m5.large"
     "root_hdd_size" = 50

@@ -28,6 +28,10 @@ data "template_file" "user_data" {
   template = "${file("user_data.sh")}"
 }
 
+module "key-pair" {
+  source   = "github.com/andrewpopa/terraform-aws-key-pair"
+}
+
 module "ec2" {
   source   = "../"
   ami_type = "ami-0085d4f8878cddc81"
@@ -38,8 +42,8 @@ module "ec2" {
   }
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = module.security-group.sg_id
-  key_name               = "andrei_ec2_public_key"
-  public_key             = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIdRIGZBoLupNf3xvLZYWEMRkhoVOs7HjB80tbTH6b/k2BEQdvfmeSgMW0K4ezavCFyo6nehEPmY194QH4NllzlvfhbdpXrNWq3iXONB6pijuH0XryB/ZEm8tyw0nRXlAAVtqzaRbYVJg41VV5KcyyfBE7nzjmIql6A67d7Pij8yKuBzmpbMWNEuYvrIZCtHqlA4hmK+RyrzyfwMdyVXC0a2TLUkKBnaFMMBD+izfUDMDwolQ+NEZ3Bl3gWRrXMjirNVKXLzKRIeO44B2L/nmiZNI58KUiYJNVRFERP0rv9Ya+NvJXh8wonTbz1viWZ0oaKubbtYcLgPoc9I7buuf9"
+  key_name               = module.key-pair.public_key_name
+  public_key             = module.key-pair.public_key
   public_ip              = true
   user_data              = data.template_file.user_data.rendered
   ec2_tags = {

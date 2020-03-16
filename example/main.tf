@@ -33,7 +33,7 @@ module "key-pair" {
 }
 
 module "iam-profile" {
-  source = "github.com/andrewpopa/terraform-aws-iam-instance-profile"
+  source = "github.com/andrewpopa/terraform-aws-iam-profile"
   policy = <<-EOF
   {
     "Version": "2012-10-17",

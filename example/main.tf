@@ -71,5 +71,4 @@ module "ec2" {
   ec2_tags = {
     ec2 = "my-ptfe-instance"
   }
-
 }

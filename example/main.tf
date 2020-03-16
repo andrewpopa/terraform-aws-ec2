@@ -29,7 +29,28 @@ data "template_file" "user_data" {
 }
 
 module "key-pair" {
-  source   = "github.com/andrewpopa/terraform-aws-key-pair"
+  source = "github.com/andrewpopa/terraform-aws-key-pair"
+}
+
+module "iam-profile" {
+  source = "github.com/andrewpopa/terraform-aws-iam-instance-profile"
+  policy = <<-EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": ["s3:*"],
+        "Resource": ["arn:aws:s3:::ptfe-external-svc-snapshot"]
+      },
+      {
+        "Effect": "Allow",
+        "Action": "s3:ListAllMyBuckets",
+        "Resource": "arn:aws:s3:::*"
+      }
+    ]
+  }
+  EOF
 }
 
 module "ec2" {
@@ -46,8 +67,9 @@ module "ec2" {
   public_key             = module.key-pair.public_key
   public_ip              = true
   user_data              = data.template_file.user_data.rendered
+  instance_profile       = module.iam-profile.iam_instance_profile
   ec2_tags = {
     ec2 = "my-ptfe-instance"
   }
-    
+
 }

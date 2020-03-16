@@ -57,3 +57,9 @@ variable "user_data" {
   type        = string
   default     = ""
 }
+
+variable "instance_profile" {
+  description = "IAM instance profile"
+  type        = string
+  default     = ""
+}

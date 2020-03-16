@@ -22,46 +22,24 @@ export AWS_DEFAULT_REGION=XXXX
 - [Security group](https://github.com/andrewpopa/terraform-aws-security-group) needs to be created - consumed as separate module
 - [`example`](https://github.com/andrewpopa/terraform-aws-ec2/tree/master/example) folder contain an example of how to consume the module
 
+
+
 ```terraform
-module "vpc" {
-  source = "github.com/andrewpopa/terraform-aws-vpc"
-
-  # VPC
-  cidr_block          = "172.16.0.0/16"
-  vpc_public_subnets  = ["172.16.10.0/24", "172.16.11.0/24", "172.16.12.0/24"]
-  vpc_private_subnets = ["172.16.13.0/24", "172.16.14.0/24", "172.16.15.0/24"]
-  vpc_tags = {
-    vpc            = "my-aws-vpc"
-    public_subnet  = "public-subnet"
-    private_subnet = "private-subnet"
-    internet_gw    = "my-internet-gateway"
-    nat_gateway    = "nat-gateway"
-  }
-}
-
-module "security-group" {
-  source = "github.com/andrewpopa/terraform-aws-security-group"
-  
-  # Security group
-  security_group_name       = "my-aws-security-group"
-  security_group_description = "my-aws-security-group-descr"
-  ingress_ports             = [22, 443, 8800, 5432]
-  tf_vpc = module.vpc.vpc_id
-}
-
 module "ec2" {
-  source = "../"
-  subnet_id = module.vpc.private_subnets[0]
-  vpc_security_group_ids = module.security-group.sg_id
+  source   = "../"
   ami_type = "ami-0085d4f8878cddc81"
   ec2_instance = {
     type          = "m5.large"
     root_hdd_size = 50
     root_hdd_type = "gp2"
   }
-  key_name = ""
-  public_key = ""
-  public_ip = false
+  subnet_id              = module.vpc.public_subnets[0]
+  vpc_security_group_ids = module.security-group.sg_id
+  key_name               = module.key-pair.public_key_name
+  public_key             = module.key-pair.public_key
+  public_ip              = true
+  user_data              = data.template_file.user_data.rendered
+  instance_profile       = module.iam-profile.iam_instance_profile
   ec2_tags = {
     ec2 = "my-ptfe-instance"
   }
@@ -80,6 +58,8 @@ module "ec2" {
 | key_name | string | none | no | key name |
 | public_ip | string | none | no | public key |
 | public_ip | bool | true | no | ec2 assign public ip |
+| user_data | string |  | no | User data for EC2 instance |
+| instance_profile | string |  | no | IAM EC2 instance profile |
 | ec2_tags["ec2"] | map | my-ec2 | no | ec2 name tag |
 
 # Outputs

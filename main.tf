@@ -8,6 +8,7 @@ resource "aws_instance" "tf_ec2" {
   associate_public_ip_address = var.public_ip
   user_data                   = var.user_data
   iam_instance_profile        = var.instance_profile
+  count                       = var.instance_count
 
   root_block_device {
     volume_type           = var.ec2_instance["root_hdd_type"]

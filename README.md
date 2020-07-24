@@ -40,6 +40,7 @@ module "ec2" {
   public_ip              = true
   user_data              = data.template_file.user_data.rendered
   instance_profile       = module.iam-profile.iam_instance_profile
+  instance_count         = 3
   ec2_tags = {
     ec2 = "my-ptfe-instance"
   }
@@ -60,15 +61,16 @@ module "ec2" {
 | public_ip | bool | true | no | ec2 assign public ip |
 | user_data | string |  | no | User data for EC2 instance |
 | instance_profile | string |  | no | IAM EC2 instance profile |
+| instance_count | number | 1 | no | Number of instance to deploy |
 | ec2_tags["ec2"] | map | my-ec2 | no | ec2 name tag |
 
 # Outputs
 | **Name**  | **Type** | **Description** |
 | ------------- | ------------- | ------------- |
-| ec2_public_ip | string | ec2 public ip |
-| ec2_private_ip | string | ec2 private ip |
-| ec2_ec2_dns | string | ec2 public aws dns |
-| ec2_ec2_id | string | ec2 id |
+| public_ip | string | ec2 public ip |
+| private_ip | string | ec2 private ip |
+| public_dns | string | ec2 public aws dns |
+| id | string | ec2 id |
 
 <!-- # Testing
 Module has implemented testing with [kitchen](https://kitchen.ci/) and [kitchen-terraform](https://newcontext-oss.github.io/kitchen-terraform/)

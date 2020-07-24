@@ -68,6 +68,7 @@ module "ec2" {
   public_ip              = true
   user_data              = data.template_file.user_data.rendered
   instance_profile       = module.iam-profile.iam_instance_profile
+  instance_count         = 3
   ec2_tags = {
     ec2 = "my-ptfe-instance"
   }

@@ -63,3 +63,9 @@ variable "instance_profile" {
   type        = string
   default     = ""
 }
+
+variable "instance_count" {
+  type        = number
+  description = "Number of instances deployed"
+  default     = 1
+}

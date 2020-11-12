@@ -5,6 +5,7 @@ module "vpc" {
   cidr_block          = "172.16.0.0/16"
   vpc_public_subnets  = ["172.16.10.0/24", "172.16.11.0/24", "172.16.12.0/24"]
   vpc_private_subnets = ["172.16.13.0/24", "172.16.14.0/24", "172.16.15.0/24"]
+  availability_zones  = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
   vpc_tags = {
     vpc            = "my-aws-vpc"
     public_subnet  = "public-subnet"
@@ -21,11 +22,11 @@ module "security-group" {
   security_group_name        = "my-aws-security-group"
   security_group_description = "my-aws-security-group-descr"
   ingress_ports              = [22, 443, 8800, 5432]
-  tf_vpc                     = module.vpc.vpc_id
+  vpc_id                     = module.vpc.vpc_id
 }
 
 data "template_file" "user_data" {
-  template = "${file("user_data.sh")}"
+  template = file("user_data.sh")
 }
 
 module "key-pair" {
@@ -68,7 +69,7 @@ module "ec2" {
   public_ip              = true
   user_data              = data.template_file.user_data.rendered
   instance_profile       = module.iam-profile.iam_instance_profile
-  instance_count         = 3
+  instance_count         = 1
   ec2_tags = {
     ec2 = "my-ptfe-instance"
   }
